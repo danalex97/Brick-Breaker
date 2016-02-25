@@ -32,7 +32,7 @@ function setInteractor(rect, point) {
 			this.x += this.dx;
 			this.y += this.dy;
 		};
-		for (var i = 1; i < 4; ++i) {
+		for (var i = 1; i < 2; ++i) {
 			point.update();
 		}
 	}
@@ -66,7 +66,7 @@ function buildObjectPull(objectPull, gameCanvas) {
 	gameCanvas.append(
 		objectPull, 
 		"up", 
-		new Rect(0, 0, 480, 3, "red", function() { 
+		new Rect(0, 0, 480, 3, "white", function() { 
 			this.x += 0;
 			this.y += 0;
 		})
@@ -74,7 +74,7 @@ function buildObjectPull(objectPull, gameCanvas) {
 	gameCanvas.append(
 		objectPull, 
 		"right", 
-		new Rect(480, 0, 3, 270, "red", function() { 
+		new Rect(480, 0, 3, 270, "white", function() { 
 			this.x += 0;
 			this.y += 0;
 		})
@@ -82,7 +82,7 @@ function buildObjectPull(objectPull, gameCanvas) {
 	gameCanvas.append(
 		objectPull, 
 		"left", 
-		new Rect(0, -10, 3, 270, "red", function() { 
+		new Rect(0, -10, 3, 270, "white", function() { 
 			this.x += 0;
 			this.y += 0;
 		})
@@ -101,8 +101,8 @@ function buildObjectPull(objectPull, gameCanvas) {
 		objectPull, 
 		"ball", 
 		new Circle(50, 50, 1, "red", function() {
-			this.dx = 1;
-			this.dy = 1; 
+			this.dx = 1.5;
+			this.dy = 1.5; 
 			this.x += this.dx;
 			this.y += this.dy;
 		})

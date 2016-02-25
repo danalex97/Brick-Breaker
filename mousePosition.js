@@ -9,9 +9,9 @@ var mouseMove = {
 	getAmplitude : function(rect) {
 		var mid = rect.x + rect.w / 2;
 		if (cursorX > mid) {
-			return 1;
+			return 2;
 		} else {
-			return -1;
+			return -2;
 		}
 	}
 };

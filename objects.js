@@ -41,7 +41,7 @@ var Breakable = function(x, y, w, h, size, update) {
 	this.level = size;
 	this.breakable = true;
 	this.update = update;
-	this.colors = ["red", "green", "yellow", "blue"];
+	this.colors = ["", "green", "yellow", "blue", "red"];
 	this.draw = function (ctx, canvas) {
 		ctx.beginPath();
 		ctx.lineWidth = "4";
