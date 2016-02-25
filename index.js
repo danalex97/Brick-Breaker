@@ -1,6 +1,7 @@
 function startGame() {
 	gameCanvas.start();
 	document.body.insertBefore(gameCanvas.canvas, document.body.firstChild);
+	document.onmousemove = mouseMove.onMouseMove;
 	
 	buildObjectPull(objectPull, gameCanvas);
 	

@@ -2,6 +2,19 @@ function computeUpdates(objectPull) {
 	var playerObject = objectPull.player;
 	var ballObject = objectPull.ball;
 	
+	playerObject.update = function() {
+		var v = mouseMove.getAmplitude(playerObject);
+		
+		if (v) {
+			this.dx = v;
+		} 
+		if (this.dx === undefined) {
+			this.x += 0
+		} else {
+			this.x += this.dx;
+		}
+	};
+	
 	setInteractor(playerObject, ballObject);
 	setInteractor(objectPull.up, ballObject);
 	setInteractor(objectPull.left, ballObject);
@@ -68,6 +81,7 @@ function buildObjectPull(objectPull, gameCanvas) {
 		objectPull, 
 		"player", 
 		new Rect(250, 260, 50, 5, "red", function() { 
+			this.dx = 1;
 			this.x += 0;
 			this.y += 0;
 		})
