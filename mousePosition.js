@@ -15,3 +15,18 @@ var mouseMove = {
 		}
 	}
 };
+
+function updateOnMouseMove(playerObject) {
+	playerObject.update = function() {
+		var v = mouseMove.getAmplitude(playerObject);
+		
+		if (v) {
+			this.dx = v;
+		} 
+		if (this.dx === undefined) {
+			this.x += 0
+		} else {
+			this.x += this.dx;
+		}
+	};
+}

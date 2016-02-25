@@ -1,5 +1,8 @@
 function copyAttr(from, to) {
 	for (var attr in from) {
+		if (to[attr]) {
+			continue;
+		}
 		to[attr] = from[attr];
 	}
 }
@@ -18,6 +21,34 @@ var Rect = function(x, y, w, h, color, update) {
 		ctx.stroke();
 	};
 	this.update = update; 
+	this.inside = function(x, y) {
+		return this.x < x && x < this.x + this.w && this.y < y && y < this.y + this.h;
+	};
+	this.intersects = function(object) {
+		if (object instanceof Circle) {
+			return this.inside(object.x, object.y);
+		}
+		return false;
+	};
+};
+
+
+var Breakable = function(x, y, w, h, size, update) {
+	this.x = x;
+	this.y = y;
+	this.w = w;
+	this.h = h;
+	this.level = size;
+	this.breakable = true;
+	this.update = update;
+	this.colors = ["red", "green", "yellow", "blue"];
+	this.draw = function (ctx, canvas) {
+		ctx.beginPath();
+		ctx.lineWidth = "4";
+		ctx.fillStyle = this.colors[this.level];
+		ctx.fillRect(this.x, this.y, this.w, this.h);
+		ctx.stroke();
+	};
 	this.inside = function(x, y) {
 		return this.x < x && x < this.x + this.w && this.y < y && y < this.y + this.h;
 	};

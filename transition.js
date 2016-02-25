@@ -2,23 +2,19 @@ function computeUpdates(objectPull) {
 	var playerObject = objectPull.player;
 	var ballObject = objectPull.ball;
 	
-	playerObject.update = function() {
-		var v = mouseMove.getAmplitude(playerObject);
-		
-		if (v) {
-			this.dx = v;
-		} 
-		if (this.dx === undefined) {
-			this.x += 0
-		} else {
-			this.x += this.dx;
-		}
-	};
+	updateOnMouseMove(playerObject);
 	
 	setInteractor(playerObject, ballObject);
 	setInteractor(objectPull.up, ballObject);
 	setInteractor(objectPull.left, ballObject);
 	setInteractor(objectPull.right, ballObject);
+	
+	for (var name in objectPull) {
+		if (objectPull[name].breakable) {
+			if (setRInteractor(name, ballObject))
+				break;
+		}
+	}
 }
 
 function setInteractor(rect, point) {
@@ -40,6 +36,21 @@ function setInteractor(rect, point) {
 			point.update();
 		}
 	}
+}
+
+function setRInteractor(name, point) {
+	var rect = objectPull[name];
+	if (rect.intersects(point)) {
+		setInteractor(rect, point);
+		if (rect.breakable) {
+			rect.level--;
+			if (rect.level === 0) {
+				delete objectPull[name];
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function buildObjectPull(objectPull, gameCanvas) {
@@ -71,7 +82,7 @@ function buildObjectPull(objectPull, gameCanvas) {
 	gameCanvas.append(
 		objectPull, 
 		"left", 
-		new Rect(0, 0, 3, 270, "red", function() { 
+		new Rect(0, -10, 3, 270, "red", function() { 
 			this.x += 0;
 			this.y += 0;
 		})
@@ -96,4 +107,18 @@ function buildObjectPull(objectPull, gameCanvas) {
 			this.y += this.dy;
 		})
 	);
+	
+	var co = 0;
+	for (var x = 20; x < 460; x += 30) {
+		for (var y = 10; y < 40; y += 20) {
+			var rand = Math.round(Math.random()*3) + 1;
+			var name = "breakable".concat(co);
+			gameCanvas.append(
+				objectPull, 
+				name, 
+				new Breakable(x, y, 20, 10, rand, function(){})
+			);
+			++co;
+		}
+	}
 }
