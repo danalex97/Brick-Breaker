@@ -1,17 +1,12 @@
 function startGame() {
 	gameCanvas.start();
 	document.body.insertBefore(gameCanvas.canvas, document.body.firstChild);
-	gameCanvas.append("rect", new Rect(5, 5, 50, 50, "red", function() { 
-		this.x += 1;
-		this.y += 1;
-	}));
-	gameCanvas.append("circle", new Circle(5, 5, 50, "red", function() {
-		this.x += 2;
-		this.y += 2;
-	}));
+	
+	buildObjectPull(objectPull, gameCanvas);
 	
 	setInterval(function() {
 		gameCanvas.clear();
+		computeUpdates(objectPull);
 		for (var key in objectPull) {
 			gameCanvas.update(key);
 		}
@@ -26,7 +21,7 @@ var gameCanvas = {
 		this.canvas.height = 270;
 		this.ctx = this.canvas.getContext("2d");
 	},
-	append : function(objectName, gameObject) {
+	append : function(objectPull, objectName, gameObject) {
 		objectPull[objectName] = gameObject;
 		objectPull[objectName].draw(this.ctx, this.canvas);
 	},

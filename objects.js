@@ -18,6 +18,15 @@ var Rect = function(x, y, w, h, color, update) {
 		ctx.stroke();
 	};
 	this.update = update; 
+	this.inside = function(x, y) {
+		return this.x < x && x < this.x + this.w && this.y < y && y < this.y + this.h;
+	};
+	this.intersects = function(object) {
+		if (object instanceof Circle) {
+			return this.inside(object.x, object.y);
+		}
+		return false;
+	};
 };
 
 var FillRect = function(x, y, w, h, color, update) {
